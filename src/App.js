@@ -1,38 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
-
-function CustomHooksUsingObjectFormat(initialState) {
-  const [value, setValue] = useState(initialState);
-  function onChange(e) {
-    setValue(e.target.value);
-  }
-  return { value, onChange };
-}
-
 function App() {
-  const firstName = CustomHooksUsingObjectFormat('');
-  const lastName = CustomHooksUsingObjectFormat('');
-  const email = CustomHooksUsingObjectFormat('');
-  const phone = CustomHooksUsingObjectFormat('');
-
-  function handleOnSubmit(e) {
-    e.preventDefault();
-    console.log(firstName.value);
+  const [user, setUser] = useState(null);
+  const [singleUser, setSingleUser] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  async function fetchSingleUser(number) {
+    setIsLoading(true);
+    try {
+      let result = await axios.get(
+        `https://jsonplaceholder.typicode.com/users/${number}`
+      );
+      setIsLoading(false);
+      setSingleUser(result.data);
+    } catch (e) {
+      setIsLoading(false);
+      console.log(e);
+    }
   }
-
+  useEffect(() => {
+    fetchAllUsers();
+  });
+  async function fetchAllUsers() {
+    try {
+      let result = await axios.get(
+        'https://jsonplaceholder.typicode.com/users'
+      );
+      console.log(result);
+    } catch (e) {
+      console.log(e);
+    }
+  }
   return (
     <div className='App'>
-      <form onSubmit={handleOnSubmit}>
-        <input type='text' placeholder='first name' {...firstName} />
-        <br />
-        <input type='text' placeholder='last name' {...lastName} />
-        <br />
-        <input type='email' placeholder='email' {...email} />
-        <br />
-        <input type='tel' placeholder='enter contact number' {...phone} />
-        <br />
-        <button type='submit'>Submit</button>
-      </form>
+      <p>Single User</p>
+      <input type='text' onChange={(e) => setSingleUser(e.target.value)} />
+      <button onClick={() => fetchSingleUser(singleUser)}>Search User</button>
+      {isLoading ? (
+        <div>...loading</div>
+      ) : (
+        <div>user full name: {singleUser.name}</div>
+      )}
+      <hr />
+      <p>Users</p>
+      <ul>
+        {user.map((user) => {
+          return <li key={user.id}>{user.name}</li>;
+        })}
+      </ul>
     </div>
   );
 }
