@@ -1,53 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 function App() {
-  const [user, setUser] = useState(null);
-  const [singleUser, setSingleUser] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  async function fetchSingleUser(number) {
-    setIsLoading(true);
-    try {
-      let result = await axios.get(
-        `https://jsonplaceholder.typicode.com/users/${number}`
-      );
-      setIsLoading(false);
-      setSingleUser(result.data);
-    } catch (e) {
-      setIsLoading(false);
-      console.log(e);
-    }
-  }
-  useEffect(() => {
-    fetchAllUsers();
-  });
-  async function fetchAllUsers() {
-    try {
-      let result = await axios.get(
-        'https://jsonplaceholder.typicode.com/users'
-      );
-      console.log(result);
-    } catch (e) {
-      console.log(e);
-    }
+  const [value, setValue] = useState('');
+  const inputRef = useRef(null);
+  // useEffect(() => {
+  //   console.log(value);
+  // }, [value]);
+  function submit() {
+    console.log(inputRef.current.value);
   }
   return (
     <div className='App'>
-      <p>Single User</p>
-      <input type='text' onChange={(e) => setSingleUser(e.target.value)} />
-      <button onClick={() => fetchSingleUser(singleUser)}>Search User</button>
-      {isLoading ? (
-        <div>...loading</div>
-      ) : (
-        <div>user full name: {singleUser.name}</div>
-      )}
+      <input type='text' onChange={(e) => setValue(e.target.value)} />
+      <button>Submit</button>
+      <br />
+      {value}
       <hr />
-      <p>Users</p>
-      <ul>
-        {user.map((user) => {
-          return <li key={user.id}>{user.name}</li>;
-        })}
-      </ul>
+      <input type='text' ref={inputRef} />
+      <button onClick={submit}>Submit</button>
     </div>
   );
 }

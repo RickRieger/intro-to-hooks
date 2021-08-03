@@ -62,6 +62,7 @@ function App() {
     </div>
   );
 }
+
 // function App() {
 //   const [firstName, setFirstName] = useState("");
 //   const [lastName, setLastName] = useState("");
@@ -113,56 +114,3 @@ function App() {
 //   );
 // }
 export default App;
-
-// function App() {
-//   const [firstName, setFirstName] = useState('');
-//   const [lastName, setLastName] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [phone, setPhone] = useState('');
-
-//   const handleOnSubmit = (e) => {
-//     e.preventDefault();
-//     console.log(firstName);
-//     console.log(lastName);
-//     console.log(email);
-//     console.log(phone);
-//   };
-
-//   return (
-//     <div className='App'>
-//       <form onSubmit={handleOnSubmit}>
-//         <input
-//           type='text'
-//           placeholder='first name'
-//           value={firstName}
-//           onChange={(e) => setFirstName(e.target.value)}
-//         />
-//         <br />
-//         <input
-//           type='text'
-//           placeholder='last name'
-//           value={lastName}
-//           onChange={(e) => setLastName(e.target.value)}
-//         />
-//         <br />
-//         <input
-//           type='email'
-//           placeholder='email'
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//         />
-//         <br />
-//         <input
-//           type='tel'
-//           placeholder='enter contact number'
-//           pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
-//           value={phone}
-//           onChange={(e) => setPhone(e.target.value)}
-//         />
-//         <br />
-//         <button type='submit'>Submit</button>
-//       </form>
-//     </div>
-//   );
-// }
-// export default App;
