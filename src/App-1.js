@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import CustomHooksUsingArrayFormat from './hooks/inputHooks';
 
@@ -7,17 +7,21 @@ function App() {
     firstName,
     firstNameOnChange,
     clearFirstNameInput,
-    greetUserUsingFirstName,
+    // greetUserUsingFirstName,
   ] = CustomHooksUsingArrayFormat('');
+
   const [lastName, lastNameOnChange, clearLastNameInput] =
     CustomHooksUsingArrayFormat('');
+
   const [email, emailOnChange, clearEmailInput, , showEmailValue] =
     CustomHooksUsingArrayFormat('');
+
   const [telephone, telephoneOnChange, clearTelephoneInput] =
     CustomHooksUsingArrayFormat('');
+
   function handleOnSubmit(e) {
     e.preventDefault();
-    //greetUserUsingFirstName();
+    // greetUserUsingFirstName();
     showEmailValue();
     clearEmailInput();
     clearFirstNameInput();

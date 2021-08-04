@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from './Components/Spinner/Spinner';
 import './App.css';
+
 function App() {
   const [user, setUser] = useState(null);
   const [singleUser, setSingleUser] = useState('');
@@ -9,6 +10,7 @@ function App() {
   const [searchTodo, setSearchTodo] = useState('');
   const [showTodo, setShowTodo] = useState(null);
   const [isSearching, setisSearching] = useState(false);
+
   async function fetchSingleUser(number) {
     setIsLoading(true);
     try {
@@ -22,9 +24,11 @@ function App() {
       console.log(e);
     }
   }
+
   useEffect(() => {
     fetchAllUsers();
   }, []);
+
   async function fetchAllUsers() {
     try {
       let result = await axios.get(
@@ -36,6 +40,7 @@ function App() {
       console.log(e);
     }
   }
+
   async function handleSearchTodo() {
     try {
       let result = await axios.get(
@@ -50,21 +55,25 @@ function App() {
       setisSearching(false);
     }
   }
+
   function fetchTodo() {
     if (!searchTodo) {
       return;
     }
     setisSearching(true);
   }
+
   useEffect(() => {
     if (!searchTodo) {
       return;
     }
     handleSearchTodo();
   }, [isSearching]);
+
   if (!user) {
     return <Spinner />;
   }
+
   return (
     <div className='App'>
       <p>Single User</p>
